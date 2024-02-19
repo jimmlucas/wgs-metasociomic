@@ -40,11 +40,11 @@ bash ./workflow/bin/download_reads.sh
 ```
 ## Reference:
 
+[S. Andreu-Sanchez, L. Chen, D. Wang, H. Augustijn, A. Zhernakova, J. Fu - "A Benchmark of Genetic Variant Calling Pipelines Using Metagenomic Short-Read Sequencing", 2021](https://www.frontiersin.org/journals/genetics/articles/10.3389/fgene.2021.648229/full)
+
 [S. Andersen, J.Schluter "A metagenomics approach to investigate microbiome sociobiology", 2021](https://www.pnas.org/doi/full/10.1073/pnas.2100934118)
 
 [S. Andersen, R. Marvig, S. Molin, A. Griffin - "Long-term social dynamics drive loss of function in pathogenic bacteria",2015](https://www.pnas.org/doi/full/10.1073/pnas.1508324112)
-
-[S. Andreu-Sanchez, L. Chen, D. Wang, H. Augustijn, A. Zhernakova, J. Fu - "A Benchmark of Genetic Variant Calling Pipelines Using Metagenomic Short-Read Sequencing", 2021](https://www.frontiersin.org/journals/genetics/articles/10.3389/fgene.2021.648229/full)
 
 
 
