@@ -8,7 +8,7 @@
 
 Nextflow- Metasociomic analysing bacterial social interactions in metagenomes of longitudinally collected samples of human microbiomes.
 
-The project aims to identify and analyze siderophore operons in metagenomic data, using the data from [Andersen et al. 2015](https://www.pnas.org/doi/full/10.1073/pnas.1508324112) For this purpose, an automated pipeline will be built with the possibility of customization in certain parameters : Quality analisis, mapping and variant calls on bacterial metagenomes. The pipeline take input: fastqs, followed by hard filtering and outputs: html, bams, and gvcfs for joint genotyping.
+The project aims to identify and analyze siderophore operons in metagenomic data, using the data from [Andersen et al. 2015](https://www.pnas.org/doi/full/10.1073/pnas.1508324112). For this purpose, an automated pipeline will be built with the possibility of customization in certain parameters : Quality analisis, mapping and variant calls on bacterial metagenomes. The pipeline take input: fastqs, followed by hard filtering and outputs: html, bams, and gvcfs for joint genotyping.
 
 The following pipeline was constructed using Nextflow and Docker to better track the steps and provide an easy way to generate a final document.
 
@@ -38,6 +38,9 @@ Run the script in the root using:
 ```
 bash ./workflow/bin/download_reads.sh 
 ```
+Reference:
+[S. Andersen, J.Schluter "A metagenomics approach to investigate microbiome sociobiology", 2021](https://www.pnas.org/doi/full/10.1073/pnas.2100934118)
+[S. Andersen, R. Marvig, S. Molin, A. Griffin - "Long-term social dynamics drive loss of function in pathogenic bacteria",2015](https://www.pnas.org/doi/full/10.1073/pnas.1508324112)
 
 [contributors-shield]: https://img.shields.io/github/contributors/jimmlucas/wgs-metasociomic.svg?style=for-the-badge
 
