@@ -8,7 +8,7 @@
 
 Nextflow- Metasociomic analysing bacterial social interactions in metagenomes of longitudinally collected samples of human microbiomes.
 
-Pipeline for standardised Quality analisis, mapping and variant calls on bacterial metagenomes. The pipeline take input: fastqs, followed by hard filtering and outputs: html, bams, and gvcfs for joint genotyping.
+The project aims to identify and analyze siderophore operons in metagenomic data, using the data from [Andersen et al. 2015](https://www.pnas.org/doi/full/10.1073/pnas.1508324112) For this purpose, an automated pipeline will be built with the possibility of customization in certain parameters : Quality analisis, mapping and variant calls on bacterial metagenomes. The pipeline take input: fastqs, followed by hard filtering and outputs: html, bams, and gvcfs for joint genotyping.
 
 ## Process:
 
