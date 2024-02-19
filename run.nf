@@ -26,9 +26,6 @@ include { FASTQC_QUALITY as FASTQC_QUALITY_ORIGINAL }       from './workflow/bin
 include { TRIMREADS }                                       from './workflow/bin/trimming/main'
 include { FASTQC_QUALITY as FASTQC_QUALITY_FINAL }          from './workflow/bin/fastqc/main' 
 include { bwaIndex }                                        from './workflow/bin/bwa/index/main'
-include { BWAMEM }                                          from './worflow/bin/bwa/mem/main'
-include { MARKDUPLICATE }                                   from './bin/picard/markduplicate'
-include { ADDORREPLACE }                                    from './bin/picard/addorreplace'
 
 workflow {
 //First Quality-control
@@ -42,21 +39,8 @@ workflow {
 // INDEX reference genome
     bwaIndex(params.reference)
 //Mapping Process- include samtools sorted and INDEX
-    sam_ch = BWAMEM(trimmed_read_ch, params.reference)
-//MarkDuplicate- used bam results
-    bam_ch = sam_ch.map { tupla ->
-    def sample_id = tupla[0]
-    def bam_path = tupla[2]
-    return tuple(sample_id, bam_path)
-    }
-    markduplicate_ch = MARKDUPLICATE(bam_ch)
-//ADDorReplace - used MarkDuplicate result made a new array.
-    replace_ch = markduplicate_ch.map { tupla ->
-    def sample_id = tupla[0]
-    def replace_bam = tupla[1]
-    return tuple(sample_id, replace_bam)
-    }
-    addorreplace_ch = ADDORREPLACE(replace_ch)
+    
+
 }
 
 
