@@ -1,10 +1,10 @@
 # WGS-METASOCIOMIC
 
-#[![Contributors][contributors-shield]][contributors-url]
-#[![Forks][forks-shield]][forks-url]
-#[![Stargazers][stars-shield]][stars-url]
-#[![Issues][issues-shield]][issues-url]
-#[![license-shield]][license-url]
+[![Contributors][contributors-shield]][contributors-url]
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
+[![license-shield]][license-url]
 
 Nextflow- Metasociomic analysing bacterial social interactions in metagenomes of longitudinally collected samples of human microbiomes.
 
