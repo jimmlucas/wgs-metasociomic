@@ -30,6 +30,7 @@ docker pull jimmlucas/metasociomic
 ## Preparation of inputs
 
 ***Download***
+
 Sometimes we forgot how downloaded a masive reads from a DB. I am here to save your time and I leave a script for the automatic-download, perhaps if you want to use your date or you already have the reads downloaded, ignore this step and proceed to the next one.
 Run the script in the root using:
 
