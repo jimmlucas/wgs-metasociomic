@@ -44,6 +44,10 @@ bash ./workflow/bin/download_reads.sh
 
 [S. Andersen, R. Marvig, S. Molin, A. Griffin - "Long-term social dynamics drive loss of function in pathogenic bacteria",2015](https://www.pnas.org/doi/full/10.1073/pnas.1508324112)
 
+[S. Andreu-Sanchez, L. Chen, D. Wang, H. Augustijn, A. Zhernakova, J. Fu - "A Benchmark of Genetic Variant Calling Pipelines Using Metagenomic Short-Read Sequencing", 2021](https://www.frontiersin.org/journals/genetics/articles/10.3389/fgene.2021.648229/full)
+
+
+
 [contributors-shield]: https://img.shields.io/github/contributors/jimmlucas/wgs-metasociomic.svg?style=for-the-badge
 
 [contributors-url]: https://github.com/jimmlucas/wgs-metasociomic/graphs/contributors
