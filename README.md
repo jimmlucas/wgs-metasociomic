@@ -38,8 +38,10 @@ Run the script in the root using:
 ```
 bash ./workflow/bin/download_reads.sh 
 ```
-Reference:
+## Reference:
+
 [S. Andersen, J.Schluter "A metagenomics approach to investigate microbiome sociobiology", 2021](https://www.pnas.org/doi/full/10.1073/pnas.2100934118)
+
 [S. Andersen, R. Marvig, S. Molin, A. Griffin - "Long-term social dynamics drive loss of function in pathogenic bacteria",2015](https://www.pnas.org/doi/full/10.1073/pnas.1508324112)
 
 [contributors-shield]: https://img.shields.io/github/contributors/jimmlucas/wgs-metasociomic.svg?style=for-the-badge
