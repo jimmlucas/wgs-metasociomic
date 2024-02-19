@@ -10,7 +10,8 @@ Nextflow- Metasociomic analysing bacterial social interactions in metagenomes of
 
 The project aims to identify and analyze siderophore operons in metagenomic data, using the data from [Andersen et al. 2015](https://www.pnas.org/doi/full/10.1073/pnas.1508324112) For this purpose, an automated pipeline will be built with the possibility of customization in certain parameters : Quality analisis, mapping and variant calls on bacterial metagenomes. The pipeline take input: fastqs, followed by hard filtering and outputs: html, bams, and gvcfs for joint genotyping.
 
-The following pipeline was constructed use Nextflow and Docker just for track better the steps and a easy way to get a final document.
+The following pipeline was constructed using Nextflow and Docker to better track the steps and provide an easy way to generate a final document.
+
 
 ## Requirements:
 The pipeline requires NextFlow and Docker on the target system. These are ofthen pre-intsalled on HPC systems.
