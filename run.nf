@@ -22,11 +22,13 @@ Configuration environemnt:
 
 //Call all the sub-work
 
-include { FASTQC_QUALITY as FASTQC_QUALITY_ORIGINAL }       from './workflow/bin/fastqc/main'
-include { TRIMREADS }                                       from './workflow/bin/trimming/main'
-include { FASTQC_QUALITY as FASTQC_QUALITY_FINAL }          from './workflow/bin/fastqc/main' 
-include { bwaIndex }                                        from './workflow/bin/bwa/index/main'
-
+include { FASTQC_QUALITY as FASTQC_QUALITY_ORIGINAL }         from './workflow/bin/fastqc/main'
+include { BUILD_INDEX as BUILDE_HUMAN_INDEX}                  from './workflow/bin/trimming/bowtie2/index/main'
+include { PRUNING-MAPPING as PRUNING_HUMAN_NOISE}             from './workflow/bin/bowtie2/mapping/main'
+//include { PRUNING_TRIMMING }                                from './workflow/bin/trimming/trimmomatic/main'
+//include { FASTQC_QUALITY as FASTQC_QUALITY_FINAL }          from './workflow/bin/fastqc/main' 
+//include { BUILD_INDEX }                                     from './workflow/bin/bwa/index/main'
+//inlcude { MAPPING }
 workflow {
 //First Quality-control
     read_ch = Channel.fromFilePairs(params.input, size: 2 )

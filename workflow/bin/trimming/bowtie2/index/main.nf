@@ -1,5 +1,5 @@
-process buildIndex {
-    tag "Index-referenceGenome"
+process BUILD_INDEX {
+    tag "Index-ReferenceGenome"
     publishDir "${params.outdir}/reference-genome", mode: 'copy'
 
     input:

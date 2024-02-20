@@ -1,7 +1,7 @@
-process TRIMREADS {
+process PRUNING_TRIMMING {
     tag "trim ${pair_id}"
 
-    publishDir "${params.outdir}/out/2-trimming",
+    publishDir "${params.outdir}/out/2-pruning",
      saveAs: {filename ->
             if (filename.indexOf("_paired.fq.gz") > 0) "trimmed_pairs/$filename"
             else if (filename.indexOf("_unpaired.fq.gz") > 0) "unpaired/$filename"
