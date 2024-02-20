@@ -34,12 +34,14 @@ workflow {
     read_ch = Channel.fromFilePairs(params.input, size: 2 )
     fastqc_ch_original= FASTQC_QUALITY_ORIGINAL(read_ch.map{it -> it[1]})
 //Workflow-started
+//Build a INDEX Human-reference "GRCh37/hg19"
+    
 //trim-reads
-    trimmed_read_ch = TRIMREADS(read_ch, params.trimmomatic_ADAPTER)
+//    trimmed_read_ch = TRIMREADS(read_ch, params.trimmomatic_ADAPTER)
 //Final Quality control after trimming
     FASTQC_QUALITY_FINAL(trimmed_read_ch.map { it -> it[1] })
 // INDEX reference genome
-    bwaIndex(params.reference)
+//    bwaIndex(params.reference)
 //Mapping Process- include samtools sorted and INDEX
     
 
