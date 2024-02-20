@@ -17,12 +17,13 @@ dependencies:
   - blast=2.12.0=pl5262h3289130_0
   - boost=1.70.0=py37h9de70de_1
   - boost-cpp=1.70.0=ha2d47e9_1
+  - bowtie2=2.2.5=py37h22450f8_8
   - brotli=1.0.9=he6710b0_2
   - brotlipy=0.7.0=py37h27cfd23_1003
   - bwa=0.7.17=h5bf99c6_8
   - bzip2=1.0.8=h7b6447c_0
   - c-ares=1.18.1=h7f98852_0
-  - ca-certificates=2023.08.22=h06a4308_0
+  - ca-certificates=2023.12.12=h06a4308_0
   - cairo=1.16.0=hf32fb01_1
   - certifi=2022.12.7=py37h06a4308_0
   - cffi=1.15.0=py37h036bc23_0
@@ -51,6 +52,7 @@ dependencies:
   - fonts-anaconda=1=h8fa9717_0
   - fonts-conda-ecosystem=1=hd3eb1b0_0
   - fonttools=4.28.5=py37h5e8e339_0
+  - freebayes=0.9.21.7=0
   - freetype=2.11.0=h70c0345_0
   - fribidi=1.0.10=h7b6447c_0
   - future=0.18.2=py37_1

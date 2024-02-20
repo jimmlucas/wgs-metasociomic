@@ -26,7 +26,7 @@ cd wgs-metasociomic
 also reommended that you pre-pull the Docker imagen required by the workflow, there is a script "Dockerfile" in the directory. Remind run the following comand in the root:
 
 ```
-docker pull jimmlucas/dvt
+docker pull jimmlucas/dvt:wgs
 ```
 ## Preparation of inputs
 
