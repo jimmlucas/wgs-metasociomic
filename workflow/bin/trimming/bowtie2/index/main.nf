@@ -3,32 +3,32 @@ process BUILD_INDEX {
     
     publishDir "${params.reference}",
      saveAs: {filename ->
-            if (filename.indexOf("human_genome.index") > 0) "human/$filename"
-            else if (filename.indexOf("personal_genome.index") > 0) "personal/$filename"
-            else filename
+            if filename.contains("index_human_genome") ? "human/$filename" :
+            else if filename.contains("index_personal_genome") ? "personal/$filename" : filename
     }
 
     input:
     path (reference_id)
 
     output:
-    path 'genome.index*'
+    path 'index_{personal,human}_genome*'
 
     script:
-    def refGenome = file( "${params.human_ref}" )
+    def isHumanref = reference_id == file( "${params.human_ref}" )
     
-    if (!refGenome.exists()) {
+    if (isHumanRef && !reference_id.toFile().exists()) {
         """
-        wget -q -O - https://ftp.ncbi.nlm.nih.gov/refseq/H_sapiens/annotation/GRCh37_latest/refseq_identifiers/GRCh37_latest_genomic.fna.gz | gunzip > ${refGenome}
-        bowtie2-build ${reference_id} human_genome.index
+        wget -q -O - https://ftp.ncbi.nlm.nih.gov/refseq/H_sapiens/annotation/GRCh37_latest/refseq_identifiers/GRCh37_latest_genomic.fna.gz | gunzip > ${reference_id}
         """
     }
     else
-        if (refGenome.exists()) {
+        if (refGenome.exists() == reference_id) {
         """
-        bowtie2-build ${reference_id} personal_genome.index
+        bowtie2-build ${reference_id} index_human_genome
         """    
         }
-    else print ("No Reference Genome. Please check if the reference Genome is in the correct Folder")
-
+    else
+        """
+        bowtie2-build ${reference_id} index_personal_genome
+        """  
 }
