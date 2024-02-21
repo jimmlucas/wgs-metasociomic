@@ -23,11 +23,11 @@ Configuration environemnt:
 //Call all the sub-work
 
 //include { FASTQC_QUALITY as FASTQC_QUALITY_ORIGINAL }       from './workflow/bin/fastqc/main'
-include { BUILD_INDEX }                  from './workflow/bin/trimming/bowtie2/index/main'
+include { BUILD_INDEX as HUMAN_GENOME_INDEX}                  from './workflow/bin/trimming/bowtie2/index/main'
 //include { PRUNING-MAPPING as PRUNING_HUMAN_NOISE}           from './workflow/bin/bowtie2/mapping/main'
 //include { PRUNING_TRIMMING }                                from './workflow/bin/trimming/trimmomatic/main'
 //include { FASTQC_QUALITY as FASTQC_QUALITY_FINAL }          from './workflow/bin/fastqc/main' 
-//include { BUILD_INDEX }                                     from './workflow/bin/bwa/index/main'
+include { BUILD_INDEX as PERSONAL_GENOME_INDEX }              from './workflow/bin/trimming/bowtie2/index/main'
 //inlcude { MAPPING }
 workflow {
 //First Quality-control
@@ -35,14 +35,15 @@ workflow {
 //    fastqc_ch_original= FASTQC_QUALITY_ORIGINAL(read_ch.map{it -> it[1]})
 //Workflow-started
 //Build a INDEX Human-reference "GRCh37/hg19"
-    reference_ch = Channel.fromPath( [ "$params.human_ref" , "$params.personal_ref" ] )
-    human_index = BUILD_INDEX (reference_ch)  
+    reference_ch = Channel.fromPath( [ "$params.human_ref" ] )
+    human_index  = HUMAN_GENOME_INDEX (reference_ch)  
 //trim-reads
 //    trimmed_read_ch = TRIMREADS(read_ch, params.trimmomatic_ADAPTER)
 //Final Quality control after trimming
 //    FASTQC_QUALITY_FINAL(trimmed_read_ch.map { it -> it[1] })
 // INDEX reference genome
-//    bwaIndex(params.reference)
+    personal_ref_ch = Channel.fromPath( [ "$params.personal_ref" ] )
+    personal_index  = PERSONAL_GENOME_INDEX (personal_ref_ch)
 //Mapping Process- include samtools sorted and INDEX
     
 
