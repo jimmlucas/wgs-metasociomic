@@ -1,5 +1,10 @@
 process PRUNING-MAPPING {
-    tag "Filter-HumanNoise"
+    tag "Mapping ${ref_id}"
+    publishDir "${params.outdir}/2-pruning",
+     saveAs: { filename ->
+        filename.contains("human_mapping") ? "human/$filename" :
+        filename.contains("personal_maping") ? "personal/$filename" : filename
+    }
 
     input:
     path 
@@ -8,10 +13,12 @@ process PRUNING-MAPPING {
     path  
 
     script:
+    def 
+
 
     """
-    bowtie2 -build
     bowtie2 
+
     """
 
 
