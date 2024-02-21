@@ -7,6 +7,7 @@ process PRUNING_TRIMMING {
             else if (filename.indexOf("_unpaired.fq.gz") > 0) "unpaired/$filename"
             else filename
     }
+    
     input:
     tuple val(pair_id), path (reads)
     path trimadapter

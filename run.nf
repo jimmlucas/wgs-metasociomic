@@ -13,9 +13,9 @@ log.info """\
 WGS METASOCIOMIC - N F   P I P E L I N E
 ==============================================
 Configuration environemnt:
-    Out directory:   $params.outdir
-    Fastq directory: $params.input
-    Reference:       $params.reference
+    Out directory:             $params.outdir
+    Fastq directory:           $params.input
+    Reference directory:       $params.reference
 """
     .stripIndent()
 
@@ -35,6 +35,8 @@ workflow {
     fastqc_ch_original= FASTQC_QUALITY_ORIGINAL(read_ch.map{it -> it[1]})
 //Workflow-started
 //Build a INDEX Human-reference "GRCh37/hg19"
+    reference_ch = Channel.fromSet(params.reference)
+    human_index = PRUNING_HUMAN_NOISE(reference_ch)
     
 //trim-reads
 //    trimmed_read_ch = TRIMREADS(read_ch, params.trimmomatic_ADAPTER)
