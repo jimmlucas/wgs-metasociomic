@@ -1,2 +1,3 @@
 task_id	hash	native_id	name	status	exit	submit	duration	realtime	%cpu	peak_rss	peak_vmem	rchar	wchar
-2	02/6b0053	89209	PERSONAL_GENOME_INDEX (Index-ReferenceGenome Siderophores_contigs.fa)	COMPLETED	0	2024-02-21 15:07:30.073	37.3s	36.1s	98.5%	212.3 MB	2.5 GB	90.4 MB	39.2 MB
+2	f7/eb0cf4	91099	PERSONAL_GENOME_INDEX (Index-ReferenceGenome Siderophores_contigs.fa)	COMPLETED	0	2024-02-21 15:40:24.786	42.2s	40.8s	97.7%	201.9 MB	2.5 GB	90.4 MB	39.2 MB
+1	99/0a46b8	91098	HUMAN_GENOME_INDEX (Index-ReferenceGenome GRCh37_latest_genomic.fna)	COMPLETED	0	2024-02-21 15:40:24.782	50m 17s	50m 15s	98.3%	5.4 GB	7.7 GB	12.2 GB	4 GB
