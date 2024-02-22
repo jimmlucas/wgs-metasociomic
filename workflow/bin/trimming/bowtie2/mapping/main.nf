@@ -7,7 +7,8 @@ process PRUNING-MAPPING {
     }
 
     input:
-    path 
+    path (ref_id)
+    path ()
 
     output:
     path  
@@ -17,8 +18,7 @@ process PRUNING-MAPPING {
 
 
     """
-    bowtie2 
-
+    bowtie2-x [índice_genoma_humano] -1 [lecturas_fastq_pareja1.fq] -2 [lecturas_fastq_pareja2.fq] --un-conc [lecturas_no_humanas.fq]
     """
 
 
