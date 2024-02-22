@@ -7,18 +7,20 @@ process PRUNING-MAPPING {
     }
 
     input:
-    path (ref_id)
-    path ()
+    tuple val(pair_id), path (reads) 
+    path humanreferencegenome
 
     output:
-    path  
+    tuple val(pair_id),
+    path("pruning_${pair_id}_{1,2}_paired.fq.gz"), 
+    path("purning_${pair_id}_{1,2}_unpaired.fq.gz")
 
     script:
-    def 
+    def isMappingHuman = ref_id == file(human_index)
 
 
     """
-    bowtie2-x [índice_genoma_humano] -1 [lecturas_fastq_pareja1.fq] -2 [lecturas_fastq_pareja2.fq] --un-conc [lecturas_no_humanas.fq]
+    bowtie2-x $humanreferencegenome -1 ${reads[0]} -2 ${reads[1]} --un-conc [lecturas_no_humanas.fq]
     """
 
 

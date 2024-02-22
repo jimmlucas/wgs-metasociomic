@@ -31,15 +31,14 @@ include { BUILD_INDEX as PERSONAL_GENOME_INDEX }              from './workflow/b
 //inlcude { MAPPING }
 workflow {
 //First Quality-control
-//    read_ch = Channel.fromFilePairs(params.input, size: 2 )
+    read_ch = Channel.fromFilePairs(params.input, size: 2 )
 //    fastqc_ch_original= FASTQC_QUALITY_ORIGINAL(read_ch.map{it -> it[1]})
 //Workflow-started
 //Build a INDEX Human-reference "GRCh37/hg19"
     reference_ch = Channel.fromPath( [ "$params.human_ref" ] )
-    human_index  = HUMAN_GENOME_INDEX (reference_ch)  
-//Pruning (Bowtie2+ Trimming) the process use the ref. Human genome
-    pruning_ch = Channel.fromPath(read_ch, human_index)
-    first_pruning = PRUNING_HUMAN_NOISE ()
+    human_index_ch  = HUMAN_GENOME_INDEX (reference_ch)  
+//Pruning (Bowtie2+ Trimming) the process use the ref. Human genoma
+    first_pruning_ch = PRUNING_HUMAN_NOISE (read_ch, human_index_ch)
     //trim-reads
 //    trimmed_read_ch = TRIMREADS(read_ch, params.trimmomatic_ADAPTER)
 //Final Quality control after trimming
