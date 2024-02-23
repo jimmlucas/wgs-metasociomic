@@ -3,27 +3,40 @@ process PRUNING-MAPPING {
 
     publishDir "${params.outdir}/2-pruning",
      saveAs: { filename ->
-        filename.contains("human_mapping") ? "Human_report/$filename" :
-        filename.contains("personal_maping") ? "Pruning_report/$filename" : filename
+        filename.contains("output_cleaned_*.fastq") ? "Human_report/$filename" :
+        filename.contains("output_mapping.sam") ? "Pruning_report/$filename" : filename
     }
 
     input:
 
     tuple val(pair_id), path (reads) from trimmed_reads
     path humanreferencegenome
+    path personalreferencegenome
 
     output:
     
     tuple val(pair_id),
     path("pruning_${pair_id}_{1,2}_paired.fq.gz"), 
-    path("purning_${pair_id}_{1,2}_unpaired.fq.gz")
+    path("purning_${pair_id}_{1,2}_unpaired.fq.gz"),
+    path("output_mapping.sam")
 
     script:
 
     def isMappingHuman = ref_id == file(human_index)
 
+    if isMappingHuman = ref_id == file(human_index).exists()) {
+
     """
-    bowtie2 -x $humanreferencegenome -1 ${reads[0]} -2 ${reads[1]} --un-conc output_clean_%.fastq
+    bowtie2 -x $humanreferencegenome -1 ${reads[0]} -2 ${reads[1]} --un-conc output_cleaned_%.fastq
     """
+    }
+
+    else
+
+        """
+
+        bowtie2 -x $personalreferencegenome -1 ${} -2 ${} -S output_mapping.sam
+
+        """
 
 }
