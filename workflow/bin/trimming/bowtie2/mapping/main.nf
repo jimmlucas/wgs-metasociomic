@@ -1,42 +1,44 @@
 process PRUNING-MAPPING {
-    tag "Mapping ${ref_id}"
+    tag "Mapping ${sample_id}"
 
     publishDir "${params.outdir}/2-pruning",
      saveAs: { filename ->
-        filename.contains("output_cleaned_*.fastq") ? "Human_report/$filename" :
-        filename.contains("output_mapping.sam") ? "Pruning_report/$filename" : filename
+        filename.contains("output_cleaned_%.fastq") ? "Human_report/$filename" :
+        filename.contains(".bam") ? "Pruning_report/$filename" : filename
     }
 
     input:
 
-    tuple val(pair_id), path (reads) from trimmed_reads
-    path referencegenome
+    tuple val(sample_id), path (paired_reads), path (unpaired_reads)
+    path reference_id
 
     output:
     
-    tuple val(pair_id),
-    path("pruning_${pair_id}_{1,2}_paired.fq.gz"), 
-    path("purning_${pair_id}_{1,2}_unpaired.fq.gz"),
-    path("output_mapping.sam")
+    tuple val(sample_id),
+    path("${sample_id}_output_cleaned_%.fastq"), 
+    path("${sample_id}.sam"),
+    path("${sample_id}.bam"),
+    path("${sample_id}.bam.bai")
 
     script:
 
-    def isMappingHuman = ref_id == file(human_index)
+    def isMappingHuman = reference_id == file(human_index)
 
-    if isMappingHuman = ref_id == file(human_index).exists()) {
+    if isMappingHuman = reference_id == file(human_index).exists()
+    { 
+        """
 
-    """
-    bowtie2 -x $rencegenome -1 ${reads[0]} -2 ${reads[1]} --un-conc output_cleaned_%.fastq
-    """
+        bowtie2 -x ${params.reference} -1 ${reads[0]} -2 ${reads[1]} --un-conc ${sample_id}_output_cleaned_%.fastq
+    
+        """
     }
 
-    else
+    """
 
-        """
+    bowtie2 -x ${params.reference} -1 ${reads[0]} -2 ${reads[1]} -S output_mapping.sam > ${}.sam
+    samtools sort < ${sample_id}.sam > ${sample_id}.bam
+    samtools index ${sample_id}.bam
 
-        bowtie2 -x $referencegenome -1 ${} -2 ${} -S output_mapping.sam
-        
-
-        """
+    """
 
 }
