@@ -10,8 +10,7 @@ process PRUNING-MAPPING {
     input:
 
     tuple val(pair_id), path (reads) from trimmed_reads
-    path humanreferencegenome
-    path personalreferencegenome
+    path referencegenome
 
     output:
     
@@ -27,7 +26,7 @@ process PRUNING-MAPPING {
     if isMappingHuman = ref_id == file(human_index).exists()) {
 
     """
-    bowtie2 -x $humanreferencegenome -1 ${reads[0]} -2 ${reads[1]} --un-conc output_cleaned_%.fastq
+    bowtie2 -x $rencegenome -1 ${reads[0]} -2 ${reads[1]} --un-conc output_cleaned_%.fastq
     """
     }
 
@@ -35,7 +34,8 @@ process PRUNING-MAPPING {
 
         """
 
-        bowtie2 -x $personalreferencegenome -1 ${} -2 ${} -S output_mapping.sam
+        bowtie2 -x $referencegenome -1 ${} -2 ${} -S output_mapping.sam
+        
 
         """
 
