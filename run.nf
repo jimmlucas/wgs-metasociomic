@@ -29,8 +29,9 @@ include { PRUNING_MAPPING as PRUNING_HUMAN_NOISE      }     from './workflow/bin
 include { PERSONAL_GENOME_MAPPING                     }     from './workflow/bin/trimming/bowtie2/mapping/mapping_main'
 //include { FASTQC_QUALITY as FASTQC_QUALITY_FINAL    }     from './workflow/bin/fastqc/main'
 include { BUILD_INDEX as PERSONAL_GENOME_INDEX        }     from './workflow/bin/trimming/bowtie2/index/main'
-//inlcude { MARK_DUPLICATE                                }     from './workflow/bin/gatk/picard/main'
-//include { VARIANT_CALLER                               }     from './workflow/bin/gatk/VariantCaller/main'
+include { MARKDUPLICATE                               }     from './workflow/bin/gatk/picard/main'
+include { ADDORREPLACE                                }     from './workflow/bin/gatk/picard/addorreplace'
+include { VARIANTCALLER                               }     from './workflow/bin/gatk/VariantCaller/main'
 //include { JOIN_VCF}
 
 workflow {
@@ -57,9 +58,21 @@ workflow {
 //Mapping Process - Mapping used personal ref. genome, also include samtools sorted
     personal_mapping_ch = PERSONAL_GENOME_MAPPING (human_pruning_ch, params.index_genome_personal)
 //MarkDuplicate
-//    duplicate_ch = MARK_DUPLICATE (personal_mapping_ch)
+    bam_ch = personal_mapping_ch.map { tupla ->
+    def sample_id = tupla[0]
+    def bam_path = tupla[2]
+    return tuple(sample_id, bam_path)
+    }
+    duplicate_ch = MARKDUPLICATE (bam_ch)
+//AddOrReplaceGroup
+    replace_ch = duplicate_ch.map { tupla ->
+    def sample_id = tupla[0]
+    def replace_bam = tupla[1]
+    return tuple(sample_id, replace_bam)
+    }
+    addorreplace_ch = ADDORREPLACE (replace_ch)
 //5th Variant Caller
-//    gatk_ch = VARIANT_CALLER (duplicate_ch)
+    gatk_ch = VARIANTCALLER (addorreplace_ch, params.personal_ref)
 //6th Join VCF
 
 }
