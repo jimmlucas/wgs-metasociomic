@@ -1,12 +1,6 @@
 process PRUNING_MAPPING {
     tag "Mapping ${sample_id}"
-
-    publishDir "${params.outdir}/2-pruning", mode: 'copy',
-     saveAs: { filename ->
-        filename.endsWith(".fastq") ? "No_human_report/$filename" :
-        filename.endsWith(".bam") || filename.endsWith(".bai") ? "Pruning_report/$filename" : null
-    }
-
+    
     input:
 
     tuple val(sample_id),
@@ -17,10 +11,7 @@ process PRUNING_MAPPING {
     output:
     
     tuple val(sample_id),
-    path("*_output_cleaned_%.fastq"), 
-    path("*.sam"),
-    path("*.bam"),
-    path("*.bam.bai")
+    path("*_output_cleaned_*.fastq")
 
     script:
 

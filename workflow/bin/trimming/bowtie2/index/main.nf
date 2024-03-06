@@ -11,8 +11,7 @@ process BUILD_INDEX {
     path reference_id
 
     output:
-    path 'index_{human,personal}_genome*'
-
+    path "index_{human,personal}_genome*", emit: index_data
     script:
     def isHumanRef = reference_id == file(params.human_ref)
     

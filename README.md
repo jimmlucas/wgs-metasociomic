@@ -46,6 +46,8 @@ bash ./workflow/bin/download_reads.sh
 
 [S. Andersen, R. Marvig, S. Molin, A. Griffin - "Long-term social dynamics drive loss of function in pathogenic bacteria",2015](https://www.pnas.org/doi/full/10.1073/pnas.1508324112)
 
+[S. Brush -"Read trimming has minimal effect on bacterial SNP-calling accuracy"](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8116680/#R2)
+
 
 
 [contributors-shield]: https://img.shields.io/github/contributors/jimmlucas/wgs-metasociomic.svg?style=for-the-badge
