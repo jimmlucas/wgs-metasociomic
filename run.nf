@@ -23,10 +23,12 @@ Configuration environemnt:
 //Call all the sub-work
 
 //include { FASTQC_QUALITY as FASTQC_QUALITY_ORIGINAL }     from './workflow/bin/fastqc/main'
-include { BUILD_INDEX as HUMAN_GENOME_INDEX           }     from './workflow/bin/trimming/bowtie2/index/main'
+//include { BUILD_INDEX as HUMAN_GENOME_INDEX           }     from './workflow/bin/trimming/bowtie2/index/main'
+include { BUILD_INDEX as SPECIE_GENOME_INDEX          }     from './workflow/bin/trimming/bowtie2/index/main'
 include { PRUNING_TRIMMING                            }     from './workflow/bin/trimming/trimmomatic/main'
-include { PRUNING_MAPPING as PRUNING_HUMAN_NOISE      }     from './workflow/bin/trimming/bowtie2/mapping/main'
+//include { PRUNING_MAPPING as PRUNING_HUMAN_NOISE      }     from './workflow/bin/trimming/bowtie2/mapping/main'
 include { PERSONAL_GENOME_MAPPING                     }     from './workflow/bin/trimming/bowtie2/mapping/mapping_main'
+include { SPECIE_GENOME_MAPPING                       }     from './workflow/bin/trimming/bowtie2/mapping/mapping_sp_main'
 //include { FASTQC_QUALITY as FASTQC_QUALITY_FINAL    }     from './workflow/bin/fastqc/main'
 include { BUILD_INDEX as PERSONAL_GENOME_INDEX        }     from './workflow/bin/trimming/bowtie2/index/main'
 include { MARKDUPLICATE                               }     from './workflow/bin/gatk/picard/main'
@@ -41,22 +43,33 @@ workflow {
 //    fastqc_ch_original= FASTQC_QUALITY_ORIGINAL(read_ch.map{it -> it[1]})
 //2nd Step - data proccesing (Pruning process)
 //Build an INDEX - Human-reference "GRCh37/hg19"
-    reference_ch = Channel.fromPath( [ "$params.human_ref" ] )
-    human_index_ch  = HUMAN_GENOME_INDEX (reference_ch)
+//    reference_ch = Channel.fromPath( [ "$params.human_ref" ] )
+//    human_index_ch  = HUMAN_GENOME_INDEX (reference_ch)
 // Build an INDEX - personal reference genome
     personal_ref_ch = Channel.fromPath( [ "$params.personal_ref" ] )
     personal_index_ch  = PERSONAL_GENOME_INDEX (personal_ref_ch)
+//Build an INDEX - Specie reference genome
+    specie_ref_ch = Channel.fromPath (["$params.sp_ref"])
+    specie_index_ch = SPECIE_GENOME_INDEX (specie_ref_ch)
 //Pruning (Bowtie2+ Trimming) the process use the ref. Human genoma
     //Trimming-Reads - Cleaning paired reads and trimming adapters
     trimmed_read_ch = PRUNING_TRIMMING(read_ch, params.trimmomatic_ADAPTER)
     //Bowti2- Human ref. genome filter
-    human_pruning_ch = PRUNING_HUMAN_NOISE (trimmed_read_ch, params.index_genome_human)
+//    human_pruning_ch = PRUNING_HUMAN_NOISE (trimmed_read_ch, params.index_genome_human)
 //3rd Quality Control
 //Final Quality control after trimming
 //    FASTQC_QUALITY_FINAL(trimmed_read_ch.map { it -> it[1] })
 //4th Mapping process
-//Mapping Process - Mapping used personal ref. genome, also include samtools sorted
-    personal_mapping_ch = PERSONAL_GENOME_MAPPING (human_pruning_ch, params.index_genome_personal)
+//Mapping Process 1st step (Specie) - Mapping used Specie ref. genome, also include samtools sorted
+    specie_mapping_ch   = SPECIE_GENOME_MAPPING (trimmed_read_ch, params.index_genome_specie)
+//Mapping Process - 2do Step (personal) - Mapping used personal ref. genome, also include sammtools sorted
+    specie_mapping_tuple_ch = specie_mapping_ch.map { tupla ->
+    def sample_id = tupla[0]
+    def specie_path = tupla[1]
+    return tuple(sample_id, specie_path)
+    }
+    specie_mapping_tuple_ch.view()
+    personal_mapping_ch = PERSONAL_GENOME_MAPPING (specie_mapping_tuple_ch, params.index_genome_personal)
 //MarkDuplicate
     bam_ch = personal_mapping_ch.map { tupla ->
     def sample_id = tupla[0]

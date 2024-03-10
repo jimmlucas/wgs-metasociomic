@@ -1,5 +1,10 @@
 process VARIANTCALLER {
     tag "Haplotype ${sample_id}"
+    
+    publishDir "${params.outdir}/3-finalVCF", mode: 'copy',
+    saveAs: { filename ->
+        filename.endsWith(".gz") ? "VCF/$filename" : null
+    }
 
     container "$params.gatk4.docker"
 

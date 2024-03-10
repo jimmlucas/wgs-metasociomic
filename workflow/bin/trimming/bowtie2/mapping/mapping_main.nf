@@ -7,7 +7,7 @@ process PERSONAL_GENOME_MAPPING {
     }
 
     input:
-    tuple val(sample_id), path(paired_reads)
+    tuple val(sample_id), path(reads)
     path (reference_id)
     
     output:
@@ -16,10 +16,8 @@ process PERSONAL_GENOME_MAPPING {
     
     script:
     """
-    bowtie2 -x ${params.index_genome_personal} -1 ${paired_reads[0]} -2 ${paired_reads[1]} -S ${sample_id}.sam 
+    bowtie2 -x ${params.index_genome_personal} -1 ${reads[0]} -2 ${reads[1]} -S ${sample_id}.sam 
     samtools sort < ${sample_id}.sam > ${sample_id}.bam
     samtools index ${sample_id}.bam
     """
 }
-
-

@@ -1,4 +1,4 @@
-process PRUNING_MAPPING {
+process SPECIE_GENOME_MAPPING {
     tag "Mapping ${sample_id}"
     
     input:
@@ -14,8 +14,7 @@ process PRUNING_MAPPING {
     path("*_output_cleaned_*.fastq")
 
     script:
-
     """
-    bowtie2 -x ${index_base} -1 ${paired_reads[0]} -2 ${paired_reads[1]} --un-conc ${sample_id}_output_cleaned_%.fastq
+     bowtie2 -x ${params.index_genome_specie} -1 ${paired_reads[0]} -2 ${paired_reads[1]} --al-conc ${sample_id}_output_cleaned_%.fastq
     """
 }
