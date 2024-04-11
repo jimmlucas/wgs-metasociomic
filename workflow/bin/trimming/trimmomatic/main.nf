@@ -14,9 +14,7 @@ process PRUNING_TRIMMING {
     script:
 
     """
-    trimmomatic PE ${reads[0]} ${reads[1]} \
-    "trimmed_${pair_id}_1_paired.fq.gz" "trimmed_${pair_id}_1_unpaired.fq.gz" "trimmed_${pair_id}_2_paired.fq.gz" "trimmed_${pair_id}_2_unpaired.fq.gz" \
-    ILLUMINACLIP:$trimadapter:2:30:10 LEADING:20 TRAILING:20 MINLEN:50 SLIDINGWINDOW:4:20 -threads ${params.max_threads}
+    trimmomatic PE ${reads[0]} ${reads[1]} "trimmed_${pair_id}_1_paired.fq.gz" "trimmed_${pair_id}_1_unpaired.fq.gz" "trimmed_${pair_id}_2_paired.fq.gz" "trimmed_${pair_id}_2_unpaired.fq.gz" ILLUMINACLIP:$trimadapter:2:30:10 LEADING:20 TRAILING:20 MINLEN:50 SLIDINGWINDOW:4:20 -threads ${params.max_threads}
 
     """
 }
