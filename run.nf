@@ -26,10 +26,11 @@ include { BUILD_INDEX as PERSONAL_GENOME_INDEX        }     from './workflow/bin
 include { PRUNING_TRIMMING                            }     from './workflow/bin/trimming/trimmomatic/main'
 include { PERSONAL_GENOME_MAPPING                     }     from './workflow/bin/trimming/bowtie2/mapping/mapping_main'
 include { SPECIE_GENOME_MAPPING                       }     from './workflow/bin/trimming/bowtie2/mapping/mapping_sp_main'
-include { FASTQC_QUALITY as FASTQC_QUALITY_FINAL    }     from './workflow/bin/fastqc/main'
+include { FASTQC_QUALITY as FASTQC_QUALITY_FINAL      }     from './workflow/bin/fastqc/main'
 include { MARKDUPLICATE                               }     from './workflow/bin/gatk/picard/main'
 include { ADDORREPLACE                                }     from './workflow/bin/gatk/picard/addorreplace'
 include { VARIANTCALLER                               }     from './workflow/bin/gatk/VariantCaller/main'
+include { GENOTYPE                                    }     from './workflow/bin/gatk/genotype/main'
 
 workflow {
 
@@ -62,7 +63,6 @@ workflow {
     def specie_path = tupla[1]
     return tuple(sample_id, specie_path)
     }
-    specie_mapping_tuple_ch.view()
     personal_mapping_ch = PERSONAL_GENOME_MAPPING (specie_mapping_tuple_ch, params.index_genome_personal)
 
 //MarkDuplicate
@@ -82,9 +82,9 @@ workflow {
     addorreplace_ch = ADDORREPLACE (replace_ch)
 //5th Variant Caller
     gatk_ch = VARIANTCALLER (addorreplace_ch, params.personal_ref)
-    
-//6th Join VCF
 
+//6th Join VCF
+    genotype_ch = GENOTYPE (gatk_ch, params.personal_ref)
 }
 
 

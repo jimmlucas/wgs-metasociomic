@@ -3,15 +3,13 @@ process SPECIE_GENOME_MAPPING {
     
     input:
 
-    tuple val(sample_id),
-    path(paired_reads)
+    tuple val(sample_id), path(paired_reads)
     path(index_base)
 
 
     output:
     
-    tuple val(sample_id),
-    path("*_output_cleaned_*.fastq")
+    tuple val(sample_id), path("*_output_cleaned_*.fastq")
 
     script:
     """

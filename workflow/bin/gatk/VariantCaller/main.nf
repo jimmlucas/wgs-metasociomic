@@ -1,9 +1,9 @@
 process VARIANTCALLER {
     tag "Haplotype ${sample_id}"
     
-    publishDir "${params.outdir}/3-finalVCF", mode: 'copy',
-    saveAs: { filename ->
-        filename.endsWith(".gz") ? "VCF/$filename" : null
+    publishDir "${params.outdir}", mode: 'copy', saveAs: { filename ->
+        if (filename.endsWith(".vcf.")) "3-finalVCF/VCF/$filename"
+        else null
     }
 
     container "$params.gatk4.docker"
@@ -19,7 +19,6 @@ process VARIANTCALLER {
     """
     samtools faidx ${reference}
     gatk CreateSequenceDictionary -R ${reference} -O ${reference.toString().replace('.fa', '.dict')}
-    
     gatk --java-options "-Xmx4g" HaplotypeCaller \
     -R ${reference} \
     -I ${bam} \
