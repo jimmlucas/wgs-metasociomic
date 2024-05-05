@@ -1,6 +1,6 @@
 #!/bin/bash
 
-download_folder= "./data/in"
+download_folder="data/in/"
 
 if read -e -p "Please provide the full path to your Acc_List.txt file: " filepath && [ -s "$filepath" ]; then 
     while IFS= read -r accession
