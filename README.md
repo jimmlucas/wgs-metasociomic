@@ -15,6 +15,11 @@ The following pipeline was constructed using Nextflow and Docker to better track
 
 ## Requirements:
 The pipeline requires NextFlow and Docker on the target system. These are ofthen pre-intsalled on HPC systems.
+
+Nextflow - if you do not have install Nextflow, use the 
+
+Docker:
+
 ## Process:
 
 The recommended way is to clone it from github:
@@ -28,16 +33,34 @@ also reommended that you pre-pull the Docker imagen required by the workflow, th
 ```
 docker pull jimmlucas/dvt:wgs
 ```
+
+or 
+
+runing the pipeline with the following command:
+
+'''
+nextflow run run.nf -with-docker jimmlucas/dvt:wgs
+'''
 ## Preparation of inputs
 
 ***Download***
 
 Sometimes we forget how to download masive reads from a DB. I am here to save your time and have provided a script for automatic-downloading. However, if you prefer to use your own date or you already have the reads downloaded, ignore this step and proceed to the next one.
+
 Run the script in the root using:
 
 ```
 bash ./workflow/bin/download_reads.sh 
 ```
+
+Remmeber that if you want to use the automatic-downloading, you need to have the acceslist already prepare it and provide the full path of the file:
+
+![image desc](../../Desktop/capturas/dowanloand.png)
+
+
+
+
+
 ## Reference:
 
 [S. Andreu-Sanchez, L. Chen, D. Wang, H. Augustijn, A. Zhernakova, J. Fu - "A Benchmark of Genetic Variant Calling Pipelines Using Metagenomic Short-Read Sequencing", 2021](https://www.frontiersin.org/journals/genetics/articles/10.3389/fgene.2021.648229/full)
