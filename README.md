@@ -78,7 +78,7 @@ Remmeber that if you want to use the automatic-downloading, you need to have the
 [contributors-url]: https://github.com/jimmlucas/wgs-metasociomic/graphs/contributors
 
 [forks-shield]: https://img.shields.io/github/forks/jimmlucas/wgs-metasociomic.svg?style=for-the-badge
-[forks-url]: https://github.com/jimmlucas/wgs-metasociomic/network/members
+[forks-url]: https://github.com/jimmlucas/wgs-metasociomic/branches
 
 [stars-shield]: https://img.shields.io/github/stars/jimmlucas/wgs-metasociomic.svg?style=for-the-badge
 [stars-url]: https://github.com/jimmlucas/wgs-metasociomic/stargazers
