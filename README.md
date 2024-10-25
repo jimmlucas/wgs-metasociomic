@@ -81,7 +81,7 @@ Remmeber that if you want to use the automatic-downloading, you need to have the
 [forks-url]: https://github.com/jimmlucas/wgs-metasociomic/network/members
 
 [stars-shield]: https://img.shields.io/github/stars/jimmlucas/wgs-metasociomic.svg?style=for-the-badge
-[stars-url]: https://github.com/gjimmlucas/wgs-metasociomic/stargazers
+[stars-url]: https://github.com/jimmlucas/wgs-metasociomic/stargazers
 
 [issues-shield]: https://img.shields.io/github/issues/jimmlucas/wgs-metasociomic.svg?style=for-the-badge
 [issues-url]: https://github.com/jimmlucas/wgs-metasociomic/issues
